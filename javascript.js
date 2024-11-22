@@ -22,7 +22,7 @@ function getNumber(num) {
     } else if(step === 2) {
         numArray2.push(num);
         operand2 = Number(numArray2.join(''));
-        display.value = operand2;
+        display.value = `${operand1 + operator + operand2}`;
 
     }
 }
