@@ -39,8 +39,6 @@ function multiply(num1, num2) {
     return "Error!";
  }
 
-
-
 //operate function
 function operate (num1, operator, num2) {
     result = 0;
@@ -49,26 +47,27 @@ function operate (num1, operator, num2) {
 
     switch(operator) {
         case '+':
-            result = addition(num1, num2);
+            return addition(num1, num2);
             break;
         case '-':
-            result =  subtract(num1,  num2);
+            return   subtract(num1,  num2);
             break;
         case '*':
-            result = multiply(num1,  num2);
+            return multiply(num1,  num2);
             break;
         case '/':
-            if(num2 === 0) {
-                clearDisplay();
-                display.innerHTML = "OH! OH! YOU CANT DIVIDE BY ZERO";
-                return;
-            } else 
-            result  = divide(num1, num2);
-            
-    }
-    
-    
+            // if(num2 !== 0) {
+                return divide(num1, num2);
+            // } else 
+            //    clearDisplay();
+            //     currentDisplay = "OH! OH! YOU CANT DIVIDE BY ZERO";
+            //     return; 
+            break;      
+         default:
+                return "null"
+      
  }
+}
 
  //select buttons for numbers
 //number buttons
@@ -120,14 +119,9 @@ function getNumber(num) {
         return;
     } 
     const parts = currentDisplay.split(`${currentOperator}`);
-    if (parts.length < 2) {
-        // console.error("Inavlid input");
-        // currentDisplay = "Invalid Input!"
-        return; 
-    }
-
+    if (parts.length < 2) return; 
+    
     operand2 = parts[1];
-    // num2 = parseFloat(operand2);
     result = operate(operand1, currentOperator, operand2);
     if (result === "Error") {
         currentDisplay = "Oopsies! You can't divide by 0";
@@ -135,7 +129,7 @@ function getNumber(num) {
         currentDisplay = Math.round(result * 10000) / 10000;
     } 
     updateDisplay();
-    display.value = currentDisplay;
+    // display.value = currentDisplay;
     operand1 = result;
     currentOperator = null;
 
@@ -207,4 +201,4 @@ function updateDisplay() {
 //  addBtn.addEventListener('click', () => setOperator("+"));
 //  subtractBtn.addEventListener('click', () => setOperator("-"));
 //  multiplyBtn.addEventListener('click', () => setOperator("*"));
-//  divisionBtn.addEventListener('click', () => setOperator("/"));
+//  divisionBtn.addEventListener('click', () => setOperator("/"))
