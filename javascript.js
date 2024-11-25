@@ -1,8 +1,8 @@
 const display = document.getElementById('display');
 
-let operand1 = ""
-let operand2 = ""
-let operator = null
+let operand1 = "";
+let operand2 = "";
+let operator = null;
 let result;
 let resetValue = false;
 let operation;
@@ -33,7 +33,10 @@ function multiply(num1, num2) {
     return num1 * num2;
 }
  function divide (num1, num2) {
+    if(num2 !== 0) {
     return num1 / num2;
+    } else
+    return "Error!";
  }
 
 
@@ -46,21 +49,21 @@ function operate (num1, operator, num2) {
 
     switch(operator) {
         case '+':
-            return num1 + num2;
+            result = addition(num1, num2);
             break;
         case '-':
-            return num1 - num2;
+            result =  subtract(num1,  num2);
             break;
         case '*':
-            return num1 * num2;
+            result = multiply(num1,  num2);
             break;
         case '/':
-            if(num2==0) {
+            if(num2 === 0) {
                 clearDisplay();
                 display.innerHTML = "OH! OH! YOU CANT DIVIDE BY ZERO";
                 return;
             } else 
-            return  num1 / num2;
+            result  = divide(num1, num2);
             
     }
     
@@ -74,7 +77,7 @@ buttons.forEach(button => {
     button.addEventListener('click', () => {
         if(button.id === "clear") {
             clearDisplay();
-        } else if (button.id==="equal") {
+        } else if (button.id === "equal") {
             calculate();
         } else if (button.classList.contains('operator')) {
             setOperator(button.dataset.value);
@@ -91,6 +94,7 @@ function getNumber(num) {
     if(currentDisplay === '0' || resetValue) {
         // console.log("Number clicked:", num);
         currentDisplay = num;
+        operand1 = currentDisplay;
         resetValue = false;
     } else if (!(num === '.' && currentDisplay.includes('.'))) {
         currentDisplay += num;
@@ -107,29 +111,61 @@ function getNumber(num) {
     display.value = currentOperator;
     currentDisplay += `${operator}`;
     resetValue = false;
+    
     updateDisplay();
  }
 
  function calculate() {
-    if(currentOperator === null || resetValue) return;
-    const parts = currentDisplay.split(` ${currentOperator} `);
-    if (parts.length < 2) return; 
-
-    secondOperand = parts[1];
-    result = operate(currentOperator, operand1, operand2);
-    if (result === "Error") {
-        currentDisplay = "Cannot divide by 0";
-    } else {
-        currentDisplay = Math.round(result * 10000) / 10000 + '';
+    if(currentOperator === null || resetValue) {
+        return;
+    } 
+    const parts = currentDisplay.split(`${currentOperator}`);
+    if (parts.length < 2) {
+        // console.error("Inavlid input");
+        // currentDisplay = "Invalid Input!"
+        return; 
     }
+
+    operand2 = parts[1];
+    // num2 = parseFloat(operand2);
+    result = operate(operand1, currentOperator, operand2);
+    if (result === "Error") {
+        currentDisplay = "Oopsies! You can't divide by 0";
+    } else {
+        currentDisplay = Math.round(result * 10000) / 10000;
+    } 
     updateDisplay();
+    display.value = currentDisplay;
     operand1 = result;
     currentOperator = null;
+
 }
+    
+
+
 
 function updateDisplay() {
     display.value = currentDisplay;
 }
+
+//delete function
+ function del() {
+    const delBtn = document.querySelector('#delete');
+    delBtn.addEventListener('click', () => {
+        currentDisplay = currentDisplay.slice(0, -1);
+    });
+    updateDisplay();
+ }
+
+
+ function clearDisplay() {
+    operand1 = '';
+    operand2 = '';
+    operation = null;
+    resetValue = true;
+    display.value = '';
+    currentOperator = null;
+ }
     //  else {
     //     if(operand1 !== null) {
     //         operand2 = parseFloat(display.innerHTML);
@@ -166,14 +202,6 @@ function updateDisplay() {
 
 
 
- function clearDisplay() {
-    operand1 = '';
-    operand2 = '';
-    operation = null;
-    resetValue = true;
-    display.value = '';
-    currentOperator = null;
- }
 
 //  //event listeners for operators
 //  addBtn.addEventListener('click', () => setOperator("+"));
