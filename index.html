@@ -11,22 +11,24 @@
     <div id="container">
         <input type="text" id="display"/>
         <div id="buttons">
-            <button onclick="getNumber(7)">7</button>
-            <button onclick="getNumber(8)">8</button>
-            <button onclick="getNumber(9)">9</button>
-            <button onclick="getOperator('+')">+</button> 
-            <button onclick="getNumber(4)">4</button>
-            <button onclick="getNumber(5)">5</button>
-            <button onclick="getNumber(6)">6</button>
-            <button onclick="getOperator('-')">-</button>
-            <button onclick="getNumber(1)">1</button>
-            <button onclick="getNumber(2)">2</button>
-            <button onclick="getNumber(3)">3</button>
-            <button onclick="getOperator('/')">/</button>
-            <button onclick="clearDisplay()">AC</button>
-            <button onclick="getNumber(0)">0</button>
-            <button onclick="operate()">=</button>
-            <button onclick="getOperator('*')">*</button>
+            <button class="btn" data-value="7">7</button>
+            <button class="btn" data-value="8">8</button>
+            <button class="btn" data-value="9">9</button>
+            <button id="add" class="btn-operator" data-value="+">+</button> 
+            <button class="btn" data-value="4">4</button>
+            <button class="btn" data-value="5">5</button>
+            <button class="btn" data-value="6">6</button>
+            <button id="subtract" class="btn-operator" data-value="-">-</button>
+            <button class="btn" data-value="1">1</button>
+            <button class="btn" data-value="2">2</button>
+            <button class="btn" data-value="3">3</button>
+            <button id="divide" class="btn-operator" data-value="/">/</button>
+            <button id="clear" class="btn">AC</button>
+            <button class="btn" data-value="0">0</button>
+            <button id="equal"  class="btn" data-value="=">=</button>
+            <button id="multiply" class="btn-operator" data-value="*">*</button>
+            <button id="delete" class="btn" data-value="Del">Del</button>
+            <button id="decimal" class="btn" data-value=".">.</button>
         </div>
     </div>
     
